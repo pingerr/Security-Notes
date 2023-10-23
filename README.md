@@ -1,6 +1,25 @@
 # ATT&CK and Threat Hunting Notes
 
-[TOC]
+<!-- TOC -->
+
+- 1. ATT&CK Matrix for Enterprise
+    - 1.1. Reconnaissance (外部侦查)
+    - 1.2. Resource Development（资源开发）
+    - 1.3. Initial Access（初始访问）
+    - 1.4. Execution（执行）
+    - 1.5. Persistence（持久化）
+    - 1.6. Privilege Escalation（权限提升）
+    - 1.7. Defense Evasion（防御规避）
+    - 1.8. Credential Access（凭证访问）
+    - 1.9. Discovery（内网信息搜集）
+    - 1.10. Lateral Movement（横向移动）
+    - 1.11. Collection（收集）
+    - 1.12. Command and Control（命令与控制）
+    - 1.13. Exfiltration（渗漏）
+    - 1.14. Impact（影响）  
+- 2. 参考
+
+<!-- /TOC -->
 
 ## 1. ATT&CK Matrix for Enterprise
 
@@ -26,7 +45,7 @@
 
 ### 1.9. Discovery（内网信息搜集）
 
-### 1.10. Lateral Movement横（向移动）
+### 1.10. Lateral Movement（横向移动）
 
 ### 1.11. Collection（收集）
 
