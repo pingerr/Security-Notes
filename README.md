@@ -1,57 +1,58 @@
 # ATT&CK and Threat Hunting Notes
 
+
 - [ATT\&CK and Threat Hunting Notes](#attck-and-threat-hunting-notes)
-  - [ATT\&CK Matrix for Enterprise](#attck-matrix-for-enterprise)
-    - [Reconnaissance (外部侦查)](#reconnaissance-外部侦查)
-    - [Resource Development（资源开发）](#resource-development资源开发)
-    - [Initial Access（初始访问）](#initial-access初始访问)
-    - [Execution（执行）](#execution执行)
-    - [Persistence（持久化）](#persistence持久化)
-    - [Privilege Escalation（权限提升）](#privilege-escalation权限提升)
-    - [Defense Evasion（防御规避）](#defense-evasion防御规避)
-    - [Credential Access（凭证访问）](#credential-access凭证访问)
-    - [Discovery（内网信息搜集）](#discovery内网信息搜集)
-    - [Lateral Movement（横向移动）](#lateral-movement横向移动)
-    - [Collection（收集）](#collection收集)
-    - [Command and Control（命令与控制）](#command-and-control命令与控制)
-    - [Exfiltration（渗漏）](#exfiltration渗漏)
-    - [Impact（影响）](#impact影响)
-  - [参考](#参考)
+  - [1. ATT\&CK Matrix for Enterprise](#1-attck-matrix-for-enterprise)
+    - [1.1. Reconnaissance (外部侦查)](#11-reconnaissance-外部侦查)
+    - [1.2. Resource Development（资源开发）](#12-resource-development资源开发)
+    - [1.3. Initial Access（初始访问）](#13-initial-access初始访问)
+    - [1.4. Execution（执行）](#14-execution执行)
+    - [1.5. Persistence（持久化）](#15-persistence持久化)
+    - [1.6. Privilege Escalation（权限提升）](#16-privilege-escalation权限提升)
+    - [1.7. Defense Evasion（防御规避）](#17-defense-evasion防御规避)
+    - [1.8. Credential Access（凭证访问）](#18-credential-access凭证访问)
+    - [1.9. Discovery（内网信息搜集）](#19-discovery内网信息搜集)
+    - [1.10. Lateral Movement（横向移动）](#110-lateral-movement横向移动)
+    - [1.11. Collection（收集）](#111-collection收集)
+    - [1.12. Command and Control（命令与控制）](#112-command-and-control命令与控制)
+    - [1.13. Exfiltration（渗漏）](#113-exfiltration渗漏)
+    - [1.14. Impact（影响）](#114-impact影响)
+  - [2. 参考](#2-参考)
 
 
-## ATT&CK Matrix for Enterprise
+## 1. ATT&CK Matrix for Enterprise
 
     对手TTP（战术、技术、步骤）
 
-### Reconnaissance (外部侦查)
+### 1.1. Reconnaissance (外部侦查)
 
-### Resource Development（资源开发）
+### 1.2. Resource Development（资源开发）
 
-### Initial Access（初始访问）
+### 1.3. Initial Access（初始访问）
 
-### Execution（执行）
+### 1.4. Execution（执行）
 
-### Persistence（持久化）
+### 1.5. Persistence（持久化）
 
-### Privilege Escalation（权限提升）
+### 1.6. Privilege Escalation（权限提升）
 
-### Defense Evasion（防御规避）
+### 1.7. Defense Evasion（防御规避）
 
-### Credential Access（凭证访问）
+### 1.8. Credential Access（凭证访问）
 
-### Discovery（内网信息搜集）
+### 1.9. Discovery（内网信息搜集）
 
-### Lateral Movement（横向移动）
+### 1.10. Lateral Movement（横向移动）
 
-### Collection（收集）
+### 1.11. Collection（收集）
 
-### Command and Control（命令与控制）
+### 1.12. Command and Control（命令与控制）
 
-### Exfiltration（渗漏）
+### 1.13. Exfiltration（渗漏）
 
-### Impact（影响）  
+### 1.14. Impact（影响）  
 
-## 参考
+## 2. 参考
 
 - [ATT&CK官网](https://attack.mitre.org/)
 - [Intranet_Penetration_Tips](https://github.com/Ridter/Intranet_Penetration_Tips)
