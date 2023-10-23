@@ -1,44 +1,42 @@
-# ATT&CK and Threat Hunting Notes 
+# ATT&CK and Threat Hunting Notes
 
 [TOC]
 
+## 1. ATT&CK Matrix for Enterprise
 
-
-## ATT&CK Matrix for Enterprise
-
+```
 对手TTP（战术、技术、步骤）
+```
 
-### Reconnaissance (外部侦查)
+### 1.1. Reconnaissance (外部侦查)
 
-### Resource Development（资源开发）
+### 1.2. Resource Development（资源开发）
 
-### Initial Access（初始访问）
+### 1.3. Initial Access（初始访问）
 
-### Execution（执行）
+### 1.4. Execution（执行）
 
-### Persistence（持久化）
+### 1.5. Persistence（持久化）
 
-### Privilege Escalation（权限提升）
+### 1.6. Privilege Escalation（权限提升）
 
-### Defense Evasion（防御规避）
+### 1.7. Defense Evasion（防御规避）
 
-### Credential Access（凭证访问）
+### 1.8. Credential Access（凭证访问）
 
-### Discovery（内网信息搜集）
+### 1.9. Discovery（内网信息搜集）
 
-### Lateral Movement横（向移动）
+### 1.10. Lateral Movement横（向移动）
 
-### Collection（收集）
+### 1.11. Collection（收集）
 
-### Command and Control（命令与控制）
+### 1.12. Command and Control（命令与控制）
 
-### Exfiltration（渗漏）
+### 1.13. Exfiltration（渗漏）
 
-### Impact（影响）
+### 1.14. Impact（影响）  
 
-
-
-## 参考
+## 2. 参考
 
 - [ATT&CK官网](https://attack.mitre.org/)
 - [Intranet_Penetration_Tips](https://github.com/Ridter/Intranet_Penetration_Tips)
@@ -50,4 +48,3 @@
 - [Pentest-Notes](https://github.com/p0keeper/Pentest-Notes)
 
 - [Threat Hunter Playbook](https://github.com/OTRF/ThreatHunter-Playbook)
-
