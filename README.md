@@ -1,58 +1,43 @@
-# ATT&CK and Threat Hunting Notes
+# Threat Hunting Notes
+
+- [Threat Hunting Notes](#threat-hunting-notes)
+  - [背景知识](#背景知识)
+    - [Windows](#windows)
+    - [Linux](#linux)
+  - [数据管理（采集范围）](#数据管理采集范围)
+    - [Windows](#windows-1)
+    - [Linux](#linux-1)
+      - [](#)
+  - [场景](#场景)
+    - [Windows](#windows-2)
+    - [Linux](#linux-2)
+      - [](#-1)
+  - [参考](#参考)
 
 
-- [ATT\&CK and Threat Hunting Notes](#attck-and-threat-hunting-notes)
-  - [1. ATT\&CK Matrix for Enterprise](#1-attck-matrix-for-enterprise)
-    - [1.1. Reconnaissance (外部侦查)](#11-reconnaissance-外部侦查)
-    - [1.2. Resource Development（资源开发）](#12-resource-development资源开发)
-    - [1.3. Initial Access（初始访问）](#13-initial-access初始访问)
-    - [1.4. Execution（执行）](#14-execution执行)
-    - [1.5. Persistence（持久化）](#15-persistence持久化)
-    - [1.6. Privilege Escalation（权限提升）](#16-privilege-escalation权限提升)
-    - [1.7. Defense Evasion（防御规避）](#17-defense-evasion防御规避)
-    - [1.8. Credential Access（凭证访问）](#18-credential-access凭证访问)
-    - [1.9. Discovery（内网信息搜集）](#19-discovery内网信息搜集)
-    - [1.10. Lateral Movement（横向移动）](#110-lateral-movement横向移动)
-    - [1.11. Collection（收集）](#111-collection收集)
-    - [1.12. Command and Control（命令与控制）](#112-command-and-control命令与控制)
-    - [1.13. Exfiltration（渗漏）](#113-exfiltration渗漏)
-    - [1.14. Impact（影响）](#114-impact影响)
-  - [2. 参考](#2-参考)
+## 背景知识
 
+### Windows
 
-## 1. ATT&CK Matrix for Enterprise
+### Linux
 
-    对手TTP（战术、技术、步骤）
+## 数据管理（采集范围）
 
-### 1.1. Reconnaissance (外部侦查)
+### Windows
 
-### 1.2. Resource Development（资源开发）
+### Linux
 
-### 1.3. Initial Access（初始访问）
+#### 
 
-### 1.4. Execution（执行）
+## 场景
 
-### 1.5. Persistence（持久化）
+### Windows
 
-### 1.6. Privilege Escalation（权限提升）
+### Linux
 
-### 1.7. Defense Evasion（防御规避）
+#### 
 
-### 1.8. Credential Access（凭证访问）
-
-### 1.9. Discovery（内网信息搜集）
-
-### 1.10. Lateral Movement（横向移动）
-
-### 1.11. Collection（收集）
-
-### 1.12. Command and Control（命令与控制）
-
-### 1.13. Exfiltration（渗漏）
-
-### 1.14. Impact（影响）  
-
-## 2. 参考
+## 参考
 
 - [ATT&CK官网](https://attack.mitre.org/)
 - [Intranet_Penetration_Tips](https://github.com/Ridter/Intranet_Penetration_Tips)
