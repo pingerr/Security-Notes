@@ -1,51 +1,74 @@
 # Threat Hunting Notes
 
 - [Threat Hunting Notes](#threat-hunting-notes)
-  - [背景知识](#背景知识)
-    - [Windows](#windows)
-    - [Linux](#linux)
-  - [数据管理（采集范围）](#数据管理采集范围)
-    - [Windows](#windows-1)
-    - [Linux](#linux-1)
-      - [](#)
-  - [场景](#场景)
-    - [Windows](#windows-2)
-    - [Linux](#linux-2)
-      - [](#-1)
-  - [参考](#参考)
+  - [1. 背景知识](#1-背景知识)
+    - [1.1. 功能架构](#11-功能架构)
+      - [1.1.1. 系统](#111-系统)
+      - [1.1.2. 存储](#112-存储)
+      - [1.1.3. 网络](#113-网络)
+      - [1.1.4. 应用](#114-应用)
+    - [1.2. 基本安全机制](#12-基本安全机制)
+      - [1.2.1. 认证](#121-认证)
+      - [1.2.2. 权限](#122-权限)
+      - [1.2.3. 日志](#123-日志)
+  - [2. ATT\&CK](#2-attck)
+  - [3. Threat Hunting](#3-threat-hunting)
+    - [3.1. 数据管理](#31-数据管理)
+      - [3.1.1. 数据源](#311-数据源)
+      - [3.1.2. 数据标准化](#312-数据标准化)
+        - [3.1.2.1. 统一数据模型](#3121-统一数据模型)
+        - [3.1.2.2. ETL](#3122-etl)
+      - [3.1.3. 数据存储](#313-数据存储)
+    - [3.2. 检测场景及规则](#32-检测场景及规则)
+      - [3.2.1.](#321)
+  - [4. 参考](#4-参考)
 
 
-## 背景知识
+## 1. 背景知识
 
-### Windows
+### 1.1. 功能架构
 
-### Linux
+#### 1.1.1. 系统
+#### 1.1.2. 存储
+#### 1.1.3. 网络
+#### 1.1.4. 应用
 
-## 数据管理（采集范围）
+### 1.2. 基本安全机制
 
-### Windows
+#### 1.2.1. 认证
+#### 1.2.2. 权限
+#### 1.2.3. 日志
 
-### Linux
+## 2. ATT&CK
 
-#### 
+## 3. Threat Hunting
 
-## 场景
+### 3.1. 数据管理
 
-### Windows
+#### 3.1.1. 数据源
 
-### Linux
+#### 3.1.2. 数据标准化
 
-#### 
+##### 3.1.2.1. 统一数据模型
 
-## 参考
+##### 3.1.2.2. ETL
 
-- [ATT&CK官网](https://attack.mitre.org/)
-- [Intranet_Penetration_Tips](https://github.com/Ridter/Intranet_Penetration_Tips)
+#### 3.1.3. 数据存储
 
-- [《ATT&CK与威胁猎杀实战》](https://weread.qq.com/web/bookDetail/03c32320729b708603c3f86)
-- [《ATT&CK框架实践指南》 (第2版)](https://weread.qq.com/web/bookDetail/8ff324f0813ab7fffg016499)
-- [腾讯SRC红蓝对抗专题](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MjM5NzE1NjA0MQ==&action=getalbum&album_id=1625340858235404289&scene=173&from_msgid=2651202058&from_itemidx=1&count=3&nolastread=1#wechat_redirect)
+### 3.2. 检测场景及规则
 
-- [Pentest-Notes](https://github.com/p0keeper/Pentest-Notes)
+#### 3.2.1. 
 
-- [Threat Hunter Playbook](https://github.com/OTRF/ThreatHunter-Playbook)
+## 4. 参考
+
+1. [ATT&CK官网](https://attack.mitre.org/)
+2. [Intranet_Penetration_Tips](https://github.com/Ridter/Intranet_Penetration_Tips)
+
+3. [《ATT&CK与威胁猎杀实战》](https://weread.qq.com/web/bookDetail/03c32320729b708603c3f86)
+4. [《ATT&CK框架实践指南》 (第2版)](https://weread.qq.com/web/bookDetail/8ff324f0813ab7fffg016499)
+5. [腾讯SRC红蓝对抗专题](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MjM5NzE1NjA0MQ==&action=getalbum&album_id=1625340858235404289&scene=173&from_msgid=2651202058&from_itemidx=1&count=3&nolastread=1#wechat_redirect)
+
+6. [Pentest-Notes](https://github.com/p0keeper/Pentest-Notes)
+
+7. [Threat Hunter Playbook](https://github.com/OTRF/ThreatHunter-Playbook)
+8. [《ATT&CK视角下的红蓝对抗实战指南》](https://book.douban.com/subject/36579994/)
