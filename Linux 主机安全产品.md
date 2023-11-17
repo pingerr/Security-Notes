@@ -1,8 +1,8 @@
-Linux 主机安全产品调研报告
+Linux 主机安全产品
 
 - [1. 概述](#1-概述)
-  - [1.1. 参考源](#11-参考源)
-  - [1.2. 调研维度](#12-调研维度)
+  - [1.1. 搜索源](#11-搜索源)
+  - [1.2. 分析维度](#12-分析维度)
 - [2. 开源 HIDS/EDR/CWPP](#2-开源-hidsedrcwpp)
   - [2.1. Tracee - Linux Runtime Security and Forensics using eBPF](#21-tracee---linux-runtime-security-and-forensics-using-ebpf)
   - [2.2. Elkeid - Bytedance Cloud Workload Protection Platform](#22-elkeid---bytedance-cloud-workload-protection-platform)
@@ -18,7 +18,7 @@ Linux 主机安全产品调研报告
 
 ## 1. 概述
 
-### 1.1. 参考源
+### 1.1. 搜索源
 
 https://github.com/topics/hids
 
@@ -29,7 +29,7 @@ https://github.com/topics/edr
 https://github.com/topics/linux-security
 
 
-### 1.2. 调研维度
+### 1.2. 分析维度
 
 - 架构设计
   - 业务架构
