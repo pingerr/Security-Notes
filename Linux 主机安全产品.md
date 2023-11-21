@@ -5,10 +5,10 @@ Linux 主机安全产品
   - [1.2. 分析维度](#12-分析维度)
 - [2. 开源 HIDS/EDR/CWPP](#2-开源-hidsedrcwpp)
   - [2.1. Tracee - Linux Runtime Security and Forensics using eBPF](#21-tracee---linux-runtime-security-and-forensics-using-ebpf)
-    - [事件](#事件)
+    - [2.1.1. 事件](#211-事件)
   - [2.2. Elkeid - Bytedance Cloud Workload Protection Platform](#22-elkeid---bytedance-cloud-workload-protection-platform)
-    - [架构](#架构)
-    - [核心业务](#核心业务)
+    - [2.2.1. 架构](#221-架构)
+    - [2.2.2. 核心业务](#222-核心业务)
   - [2.3. OSSEC](#23-ossec)
   - [2.4. Fail2Ban](#24-fail2ban)
   - [2.5. ThreatMapper - Runtime Threat Management and Attack Path Enumeration for Cloud Native](#25-threatmapper---runtime-threat-management-and-attack-path-enumeration-for-cloud-native)
@@ -55,7 +55,7 @@ https://github.com/topics/antivirus
 > About: Tracee 是一款运行时安全和可观察性工具，可帮助您了解系统和应用程序的行为方式。它使用 eBPF 技术来接入系统，并将这些信息作为可以使用的事件。事件范围从实际系统活动事件到可检测可疑行为模式的复杂安全事件。
 > Program：Go、C
 
-#### 事件
+#### 2.1.1. 事件
 
 6种内置事件类别
 - syscalls
@@ -72,7 +72,7 @@ https://github.com/topics/antivirus
 > About: Elkeid 是一款可以满足 主机，容器与容器集群，Serverless 等多种工作负载安全需求的开源解决方案，源于字节跳动内部最佳实践。
 > Program：Go、C、Rust、C++
 
-#### 架构
+#### 2.2.1. 架构
 
 ![架构](https://github.com/bytedance/Elkeid/raw/main/server/docs/server_new.png)
 
@@ -95,7 +95,7 @@ https://github.com/topics/antivirus
   - **Elkeid Console** Elkeid 前端部分
 
 
-#### 核心业务
+#### 2.2.2. 核心业务
 
 1. 主机侧功能
 
@@ -115,8 +115,7 @@ https://github.com/topics/antivirus
     - 定时任务
   - 日志
     - 认证授权
-    - 
-内核态
+- 内核态
 
 **基线风险识别**
 
