@@ -22,6 +22,7 @@
     - [3.1. 数据管理](#31-数据管理)
       - [3.1.1. 数据源（采集）](#311-数据源采集)
         - [3.1.1.1. Window](#3111-window)
+        - [Linux](#linux)
       - [3.1.2. 数据标准化](#312-数据标准化)
         - [3.1.2.1. 统一数据模型](#3121-统一数据模型)
         - [3.1.2.2. ETL](#3122-etl)
@@ -85,6 +86,52 @@
 [官网](https://learn.microsoft.com/zh-cn/sysinternals/downloads/sysmon)
 
 [配置](https://github.com/ion-storm/sysmon-config)
+
+##### Linux
+
+**日志**
+
+目录：/var/log
+
+常见日志：
+```
+/var/log/messages：记录Linux内核消息及各种应用程序的公共日志信息，包括启动、IO错误、网络错误、程序故障等。对于未使用独立日志文件的应用程序或服务，一般都可以从该文件获得相关的事件记录信息。
+/var/log/cron：记录crond计划任务产生的事件消息。
+/varlog/dmesg：记录Linux系统在引导过程中的各种事件信息。
+/var/log/maillog：记录进入或发出系统的电子邮件活动。
+/var/log/lastlog：最近几次成功登录事件和最后一次不成功登录事件。
+/var/log/rpmpkgs：记录系统中安装各rpm包列表信息。
+/var/log/secure：记录用户登录认证过程中的事件信息。
+/var/log/wtmp：记录每个用户登录、注销及系统启动和停机事件。
+/var/log/utmp：记录当前登录的每个用户的详细信息
+```
+
+日志分析示例：
+- 定位有多少个IP对root帐号进行爆破
+```
+grep "Failed password for root" /var/log/secure | awk '{print $11}' | sort | uniq -c | sort -nr | more
+```
+- 爆破IP的时间分布
+```
+grep "Failed password" /var/log/secure | grep -E -o "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" | uniq -c
+```
+
+- 爆破用户名字典
+```
+grep "Failed password" /var/log/secure|perl -e 'while($_=<>){ /for(.*?) from/; print "$1\n";}'|uniq -c|sort -nr
+```
+
+- 登录成功的日期、用户名、IP
+```
+grep "Accepted" /var/log/secure | awk '{print $1,$2,$3,$9,$11}'
+```
+- 增加和删除用户
+```
+grep “useradd”or “userdel”/var/log/secure
+```
+
+
+**信息**
 
 #### 3.1.2. 数据标准化
 
