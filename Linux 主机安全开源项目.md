@@ -24,7 +24,6 @@ Linux 主机安全开源项目
   - [2.11. Hades - eBPF based HIDS](#211-hades---ebpf-based-hids)
     - [2.11.1. 架构](#2111-架构)
     - [2.11.2. 核心功能](#2112-核心功能)
-- [3. 非开源 HIDS/EDR/CWPP](#3-非开源-hidsedrcwpp)
 
 
 
@@ -87,7 +86,7 @@ https://github.com/topics/antivirus
 
 #### 2.2.1. 架构
 
-![架构](https://github.com/bytedance/Elkeid/raw/main/server/docs/server_new.png)
+![Elkeid架构](<assets/Linux 主机安全开源项目/image.png>)
 
 - **Host Ability**
   - **Elkeid Agent** 用户态 Agent，负责管理各个端上能力组件并与 **Elkeid Agent Center** 通信
@@ -271,7 +270,7 @@ ClamAV + Yara
 
 Manager（Server） + Agents/Agentless
 
-![ossec架构](https://www.ossec.net/docs/_images/ossec-arch.jpg)
+![ossec架构](<assets/Linux 主机安全开源项目/image-1.png>)
 
 #### 2.3.2. 核心业务
 
@@ -332,10 +331,9 @@ Manager（Server） + Agents/Agentless
 
 #### 2.6.1. 架构
 
-![picture 2](images/fc7e1e1287ee8863d2f7d36b8d726945765fefb78130cd4f96079fab7ce2021d.png)  
+![Tetragon架构1](<assets/Linux 主机安全开源项目/image-2.png>)
 
-![picture 3](images/a55b39cb945bcf05025758a23ee26674fd0a288bb08824015d6e00cde860fdad.png)  
-
+![Tetragon架构2](<assets/Linux 主机安全开源项目/image-3.png>)
 
 
 
@@ -380,11 +378,11 @@ Manager（Server） + Agents/Agentless
 
 **Agent**
 
-![hades-architecture-agent](images/e2223aac75118a1b1a8299e11f513c7a0354f87a7df7e379ab7d009b864568a9.png)  
+![hades-architecture-agent](<assets/Linux 主机安全开源项目/image-4.png>)
 
 **Data Analysis**
 
-![picture 1](images/eac047475b3213abacd5e61b54f4c8f89c47870dcbb28f39d7747024a75e4f93.png)  
+![hades-architecture-data-analysis](<assets/Linux 主机安全开源项目/image-5.png>)
 
 #### 2.11.2. 核心功能
 
