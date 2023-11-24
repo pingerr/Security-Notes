@@ -442,5 +442,3 @@ Manager（Server） + Agents/Agentless
 |  socket   |  P   | 5001 |
 
 
-
-## 3. 非开源 HIDS/EDR/CWPP
