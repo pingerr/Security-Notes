@@ -9,7 +9,7 @@ Linux 主机安全开源项目
   - [3.1. 架构](#31-架构)
   - [3.2. 核心功能](#32-核心功能)
   - [3.3. 技术原理](#33-技术原理)
-- [4. Falco - Cloud Native Runtime Security](#4-falco---cloud-native-runtime-security)
+- [4. Falco](#4-falco)
 - [5. Tetragon](#5-tetragon)
   - [5.1. 架构](#51-架构)
 - [6. Fail2Ban](#6-fail2ban)
@@ -287,7 +287,7 @@ ClamAV + Yara
 6. **运行时应用安全防护**
 
 
-## 4. Falco - Cloud Native Runtime Security
+## 4. Falco
 
 Cloud Native Runtime Security
 
