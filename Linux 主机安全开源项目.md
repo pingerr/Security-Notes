@@ -1,35 +1,34 @@
 Linux 主机安全开源项目
 
 - [1. 概述](#1-概述)
-  - [1.1. 参考](#11-参考)
+  - [1.1. Topic 搜索](#11-topic-搜索)
   - [1.2. 分析维度](#12-分析维度)
-- [2. 开源 HIDS/EDR/CWPP](#2-开源-hidsedrcwpp)
-  - [2.1. Tracee - Linux Runtime Security and Forensics using eBPF](#21-tracee---linux-runtime-security-and-forensics-using-ebpf)
-    - [2.1.1. 事件](#211-事件)
-  - [2.2. Elkeid - Bytedance Cloud Workload Protection Platform](#22-elkeid---bytedance-cloud-workload-protection-platform)
-    - [2.2.1. 架构](#221-架构)
-    - [2.2.2. 核心功能](#222-核心功能)
-    - [2.2.3. 技术原理](#223-技术原理)
-  - [2.3. OSSEC](#23-ossec)
-    - [2.3.1. 架构](#231-架构)
-    - [2.3.2. 核心业务](#232-核心业务)
-  - [2.4. ehids-agent](#24-ehids-agent)
-  - [2.5. Falco - Cloud Native Runtime Security](#25-falco---cloud-native-runtime-security)
-  - [2.6. Tetragon - eBPF-based Security Observability and Runtime Enforcement](#26-tetragon---ebpf-based-security-observability-and-runtime-enforcement)
-    - [2.6.1. 架构](#261-架构)
-  - [2.7. Fail2Ban](#27-fail2ban)
-  - [2.8. ThreatMapper - Runtime Threat Management and Attack Path Enumeration for Cloud Native](#28-threatmapper---runtime-threat-management-and-attack-path-enumeration-for-cloud-native)
-  - [2.9. ZeusCloud - Open Source Cloud Security](#29-zeuscloud---open-source-cloud-security)
-  - [2.10. 驭龙 HIDS](#210-驭龙-hids)
-  - [2.11. Hades - eBPF based HIDS](#211-hades---ebpf-based-hids)
-    - [2.11.1. 架构](#2111-架构)
-    - [2.11.2. 核心功能](#2112-核心功能)
+- [2. Tracee ☆☆☆☆☆](#2-tracee-)
+  - [2.1. 事件](#21-事件)
+- [3. Elkeid ☆☆☆☆☆](#3-elkeid-)
+  - [3.1. 架构](#31-架构)
+  - [3.2. 核心功能](#32-核心功能)
+  - [3.3. 技术原理](#33-技术原理)
+- [4. Falco - Cloud Native Runtime Security](#4-falco---cloud-native-runtime-security)
+- [5. Tetragon](#5-tetragon)
+  - [5.1. 架构](#51-架构)
+- [6. Fail2Ban](#6-fail2ban)
+- [7. ThreatMapper](#7-threatmapper)
+- [8. ZeusCloud](#8-zeuscloud)
+- [9. 驭龙 HIDS](#9-驭龙-hids)
+- [10. OSSEC](#10-ossec)
+  - [10.1. 架构](#101-架构)
+  - [10.2. 核心业务](#102-核心业务)
+- [11. ehids](#11-ehids)
+- [12. Hades - eBPF based HIDS](#12-hades---ebpf-based-hids)
+  - [12.1. 架构](#121-架构)
+  - [12.2. 核心功能](#122-核心功能)
 
 
 
 ## 1. 概述 
 
-### 1.1. 参考
+### 1.1. Topic 搜索
 
 https://github.com/topics/hids
 
@@ -47,9 +46,10 @@ https://github.com/topics/antivirus
 - 架构
 - 核心功能与实现原理
 
-## 2. 开源 HIDS/EDR/CWPP
 
-### 2.1. Tracee - Linux Runtime Security and Forensics using eBPF
+## 2. Tracee ☆☆☆☆☆ 
+
+Linux Runtime Security and Forensics using eBPF
 
 > Star: 3k  
 > 
@@ -59,7 +59,7 @@ https://github.com/topics/antivirus
 > 
 > Program：Go、C
 
-#### 2.1.1. 事件
+### 2.1. 事件
 
 6种内置事件类别
 - syscalls
@@ -69,17 +69,19 @@ https://github.com/topics/antivirus
 - containers
 - misc
 
-### 2.2. Elkeid - Bytedance Cloud Workload Protection Platform
+## 3. Elkeid ☆☆☆☆☆
+
+Bytedance Cloud Workload Protection Platform
 
 > Star: 1.9k  
 > 
-> URL: https://github.com/bytedance/Elkeid/tree/main
+> URL: https://github.com/bytedance/Elkeid
 >   
 > About: Elkeid 是一款可以满足 主机，容器与容器集群，Serverless 等多种工作负载安全需求的开源解决方案，源于字节跳动内部最佳实践。  
 > 
 > Program：Go、C、Rust、C++
 
-#### 2.2.1. 架构
+### 3.1. 架构
 
 ![Elkeid架构](<assets/Linux 主机安全开源项目/image.png>)
 
@@ -102,7 +104,7 @@ https://github.com/topics/antivirus
   - **Elkeid Console** Elkeid 前端部分
 
 
-#### 2.2.2. 核心功能
+### 3.2. 核心功能
 
 **资产盘点**
 > 统一管理主机列表、容器列表、进程、Java进程依赖信息、端口、账号、系统组件、系统服务、定时任务、系统完整性等资产指纹信息，帮助企业资产可视化
@@ -127,7 +129,7 @@ https://github.com/topics/antivirus
 > 对主机、应用上存在的漏洞风险进行全面监测，包括系统组件漏洞、应用漏洞等，帮助企业应对漏洞风险
 
 
-#### 2.2.3. 技术原理
+### 3.3. 技术原理
 
 1. **内核层数据采集与 Rootkit 检测**
 
@@ -284,20 +286,86 @@ ClamAV + Yara
 
 6. **运行时应用安全防护**
 
-### 2.3. OSSEC
+
+## 4. Falco - Cloud Native Runtime Security
+
+Cloud Native Runtime Security
+
+> Star: 6.5k    
+> URL: https://github.com/falcosecurity/falco      
+> Program：C++  
+
+
+## 5. Tetragon 
+
+eBPF-based Security Observability and Runtime Enforcement
+
+> Star: 2.9k    
+> URL: https://github.com/cilium/tetragon     
+> Program：Go、C  
+
+- Tetragon 组件基于 **eBPF** 实现实时安全可观察性和运行时执行。
+- Tetragon 可检测并应对安全重大事件，如：
+  - **进程执行事件** 
+  - **系统调用活动** 
+  - **I/O 活动（网络和文件访问）** 
+- Tetragon **具有 Kubernetes 感知能力**，即能够理解命名空间、pod 等 Kubernete 标识，可根据单个工作负载配置安全事件检测。
+
+### 5.1. 架构
+
+![Tetragon架构1](<assets/Linux 主机安全开源项目/image-2.png>)
+
+![Tetragon架构2](<assets/Linux 主机安全开源项目/image-3.png>)
+
+
+
+## 6. Fail2Ban
+
+> Star: 9.1k  
+> URL: https://github.com/fail2ban/fail2ban 
+> About: Daemon to ban hosts that cause multiple authentication errors（禁止导致多次身份验证错误的主机的守护进程）  
+> Program：Python
+
+
+## 7. ThreatMapper
+
+Runtime Threat Management and Attack Path Enumeration for Cloud Native
+
+> Star: 4.5k  
+> URL: https://github.com/deepfence/ThreatMapper  
+> About: Deepfence ThreatMapper 可在您的生产平台中搜索威胁，并根据其暴露风险对这些威胁进行排序。它能发现易受攻击的软件组件、暴露的秘密以及偏离良好安全实践的情况。ThreatMapper 结合使用基于代理的检测和无代理监控，以提供尽可能广泛的威胁检测覆盖范围。利用 ThreatMapper 的 ThreatGraph 可视化功能，可以确定对应用程序安全构成最大风险的问题，并将这些问题按优先顺序排列，以便进行有计划的保护或修复。  
+> Program：TypeScript、Go
+
+## 8. ZeusCloud
+
+Open Source Cloud Security
+
+> Star: 629 
+> URL: https://github.com/Zeus-Labs/ZeusCloud 
+> About:  
+> Program：TypeScript、Go
+
+## 9. 驭龙 HIDS
+
+> Star: 2.1k  
+> URL: https://github.com/ysrc/yulong-hids-archived 
+> About: 驭龙HIDS是一款由 YSRC 开源的入侵检测系统，由 Agent， Daemon， Server 和 Web 四个部分组成，集异常检测、监控管理为一体，拥有异常行为发现、快速阻断、高级分析等功能，可从多个维度行为信息中发现入侵行为。 
+> Program：Go
+
+## 10. OSSEC
 
 > Star: 4.1k  
 > URL: https://github.com/ossec/ossec-hids  
 > About: OSSEC 是一个基于主机的开源入侵检测系统，可执行:日志分析、文件完整性检查、策略监控、rootkit 检测、实时警报和主动响应。它将 HIDS、日志监控和 SIM/SIEM 融合在一个简单、强大的开源解决方案中。 
 > Program：C
 
-#### 2.3.1. 架构
+### 10.1. 架构
 
 Manager（Server） + Agents/Agentless
 
 ![ossec架构](<assets/Linux 主机安全开源项目/image-1.png>)
 
-#### 2.3.2. 核心业务
+### 10.2. 核心业务
 
 1. **基于日志的入侵检测**
    - /var/log/messages
@@ -323,7 +391,9 @@ Manager（Server） + Agents/Agentless
     其工作原理是，代理每隔几小时（用户自定义）扫描一次系统，并将所有校验和发送到服务器。服务器存储校验和，并查找对其进行的修改。如果有任何变化，就会发出警报。
 
 
-### 2.4. ehids-agent
+
+
+## 11. ehids
 
 > Star: 345    
 > URL: https://github.com/gojue/ehids-agent      
@@ -331,67 +401,8 @@ Manager（Server） + Agents/Agentless
 > Program：C    
 
 
-### 2.5. Falco - Cloud Native Runtime Security
 
-> Star:     
-> URL:      
-> Program：  
-
-**简介**
- 
-
-
-### 2.6. Tetragon - eBPF-based Security Observability and Runtime Enforcement
-
-> Star: 2.9k    
-> URL: https://github.com/cilium/tetragon     
-> Program：Go、C  
-
-- Tetragon 组件基于 **eBPF** 实现实时安全可观察性和运行时执行。
-- Tetragon 可检测并应对安全重大事件，如：
-  - **进程执行事件** 
-  - **系统调用活动** 
-  - **I/O 活动（网络和文件访问）** 
-- Tetragon **具有 Kubernetes 感知能力**，即能够理解命名空间、pod 等 Kubernete 标识，可根据单个工作负载配置安全事件检测。
-
-#### 2.6.1. 架构
-
-![Tetragon架构1](<assets/Linux 主机安全开源项目/image-2.png>)
-
-![Tetragon架构2](<assets/Linux 主机安全开源项目/image-3.png>)
-
-
-
-### 2.7. Fail2Ban
-
-> Star: 9.1k  
-> URL: https://github.com/fail2ban/fail2ban 
-> About: Daemon to ban hosts that cause multiple authentication errors（禁止导致多次身份验证错误的主机的守护进程）  
-> Program：Python
-
-
-### 2.8. ThreatMapper - Runtime Threat Management and Attack Path Enumeration for Cloud Native
-
-> Star: 4.5k  
-> URL: https://github.com/deepfence/ThreatMapper  
-> About: Deepfence ThreatMapper 可在您的生产平台中搜索威胁，并根据其暴露风险对这些威胁进行排序。它能发现易受攻击的软件组件、暴露的秘密以及偏离良好安全实践的情况。ThreatMapper 结合使用基于代理的检测和无代理监控，以提供尽可能广泛的威胁检测覆盖范围。利用 ThreatMapper 的 ThreatGraph 可视化功能，可以确定对应用程序安全构成最大风险的问题，并将这些问题按优先顺序排列，以便进行有计划的保护或修复。  
-> Program：TypeScript、Go
-
-### 2.9. ZeusCloud - Open Source Cloud Security
-
-> Star: 629 
-> URL: https://github.com/Zeus-Labs/ZeusCloud 
-> About:  
-> Program：TypeScript、Go
-
-### 2.10. 驭龙 HIDS
-
-> Star: 2.1k  
-> URL: https://github.com/ysrc/yulong-hids-archived 
-> About: 驭龙HIDS是一款由 YSRC 开源的入侵检测系统，由 Agent， Daemon， Server 和 Web 四个部分组成，集异常检测、监控管理为一体，拥有异常行为发现、快速阻断、高级分析等功能，可从多个维度行为信息中发现入侵行为。 
-> Program：Go
-
-### 2.11. Hades - eBPF based HIDS
+## 12. Hades - eBPF based HIDS
 
 > Star: 260 
 > URL: https://github.com/chriskaliX/Hades/tree/main  
@@ -399,7 +410,7 @@ Manager（Server） + Agents/Agentless
 > Program：C、Rust、Go
 
 
-#### 2.11.1. 架构
+### 12.1. 架构
 
 **Agent**
 
@@ -409,7 +420,7 @@ Manager（Server） + Agents/Agentless
 
 ![hades-architecture-data-analysis](<assets/Linux 主机安全开源项目/image-5.png>)
 
-#### 2.11.2. 核心功能
+### 12.2. 核心功能
 
 1. **Linux Kernel Hook**
 
