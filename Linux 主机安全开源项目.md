@@ -9,6 +9,8 @@ Linux 主机安全开源项目
   - [3.1. 架构](#31-架构)
   - [3.2. 核心功能](#32-核心功能)
   - [3.3. 技术原理](#33-技术原理)
+    - [**内核层数据采集与 Rootkit 检测**](#内核层数据采集与-rootkit-检测)
+    - [**端上资产/关键信息采集**](#端上资产关键信息采集)
 - [4. Falco](#4-falco)
 - [5. Tetragon](#5-tetragon)
   - [5.1. 架构](#51-架构)
@@ -49,15 +51,14 @@ https://github.com/topics/antivirus
 
 ## 2. Tracee ☆☆☆☆☆ 
 
+> Star: 3k  
+> Program：Go、C        
+> URL: https://github.com/aquasecurity/tracee 
+
+
 Linux Runtime Security and Forensics using eBPF
 
-> Star: 3k  
-> 
-> URL: https://github.com/aquasecurity/tracee 
-> 
 > About: Tracee 是一款运行时安全和可观察性工具，可帮助您了解系统和应用程序的行为方式。它使用 eBPF 技术来接入系统，并将这些信息作为可以使用的事件。事件范围从实际系统活动事件到可检测可疑行为模式的复杂安全事件。   
-> 
-> Program：Go、C
 
 ### 2.1. 事件
 
@@ -131,15 +132,173 @@ Bytedance Cloud Workload Protection Platform
 
 ### 3.3. 技术原理
 
-1. **内核层数据采集与 Rootkit 检测**
+#### **内核层数据采集与 Rootkit 检测**
 
-2. **端上资产/关键信息采集**
-- **进程**：支持对exe md5的哈希计算，后续可关联威胁情报分析，另外与容器信息进行关联，支撑后续数据溯源功能(跨容器)。
+#### **端上资产/关键信息采集**
 
-- 端口
-  - 支持tcp、udp监听端口的信息提取，以及与进程、容器信息的关联上报。另外基于sock状态及其关系，分析对外暴露服务，向上支撑主机暴露面分析功能。(跨容器)
+**1 进程**：
+
+> 支持对exe md5的哈希计算，后续可关联威胁情报分析   
+> 与容器信息进行关联，支撑后续数据溯源功能(跨容器)
+
+获取进程信息目录
+```
+$ ll /proc
+total 0
+dr-xr-xr-x  5 root      root              0 Feb  8 17:08 1
+dr-xr-xr-x  5 root      root              0 Feb  8 17:08 10
+dr-xr-xr-x  5 root      root              0 Feb  8 17:08 11
+```
+
+采集信息以 pid=2406 的进程为例子：
+
+- **cmdLine**  启动当前进程的完整命令行信息
+```
+$ cat /proc/2406/cmdline
+frps-c./frps.ini
+```
+
+- **cwd** 当前进程运行目录的符号链接
+```
+$ ls -lt /proc/2406/cwd
+lrwxrwxrwx 1 root root 0 Dec 12 20:39 /proc/2406/cwd -> /home/mike/frp_0.13.0_linux_amd64
+```
+
+- **md5** 进程exe的md5校验和，需要计算
+```
+$ ls -lt /proc/2406/exe
+lrwxrwxrwx 1 root root 0 Dec 11 19:00 /proc/2406/exe -> /usr/bin/frps
+```
+
+- **exe** 实际运行程序的符号链接
+```
+$ ls -lt /proc/2406/exe
+lrwxrwxrwx 1 root root 0 Dec 11 19:00 /proc/2406/exe -> /usr/bin/frps
+```
+
+**进程 status 状态信息**
+- **pid**  进程id
+- **name** 进程名
+- **state**  进程的状态信息(R 处于运行状态，S 处于休眠状态，D 处于不间断等待状态，Z 处于僵尸状态，T 处于跟踪或停止状态)
+- **ppid**  父进程的pid
+- **umask** 文件模式创建掩码
+- **tracerPid** 跟踪进程的PID
+- **ruid**  real uid
+- **rUsername**
+- **euid**  effective uid
+- **eUsername**
+- **suid**  saved set uid
+- **sUsername**
+- **fsuid** file system uid
+- **fUsername**
+- **rgid**  real gid
+- **egid**  effective gid
+- **sgid**  saved set gid
+- **fsgid** file system gid
+```
+$ cat /proc/2406/status
+Name:   frps
+State:  S (sleeping)
+Tgid:   2406
+Ngid:   0
+Pid:    2406
+PPid:   2130
+TracerPid:  0
+Uid:    0   0   0   0  /*ruid euid suid fsuid*/
+Gid:    0   0   0   0  /*rgid egid sgid fsgid*/
+FDSize: 128
+Groups: 0
+NStgid: 2406
+NSpid:  2406
+NSpgid: 2406
+NSsid:  2130
+...
+```
+
+**进程 stat 状态信息**
+- **pgid** 进程的 pgrp(第5个值)
+- **sid** session id (第5个值)
+- **startTime** 系统启动后进程开始的时间（第22个值，需要加上系统启动时间）
+```
+$ cat /proc/2406/stat
+2406 (frps) S 2 0 0 0 -1 69247072 0 0 0 0 0 2453 0 0 20 0 1 0 70730273 0 0 18446744073709551615 0 0 0 0 0 0 0 2147483647 0 18446744072085041241 0 0 17 1 0 0 328 0 0 0 0 0 0 0 0 0 0
+```
+
+
+**2 端口**
+> 支持tcp、udp监听端口的信息提取，以及与进程、容器信息的关联上报。  
+> 基于sock状态及其关系，分析对外暴露服务，向上支撑主机暴露面分析功能。(跨容器)
+
+```
+type Port struct {
+	// from inet
+	Family   string `mapstructure:"family"`  
+	Protocol string `mapstructure:"protocol"`
+	State    string `mapstructure:"state"`
+	Sport    string `mapstructure:"sport"`
+	Dport    string `mapstructure:"dport"`
+	Sip      string `mapstructure:"sip"`
+	Dip      string `mapstructure:"dip"`
+	Uid      string `mapstructure:"uid"`
+	Inode    string `mapstructure:"inode"`
+	Username string `mapstructure:"username"`
+	// from process
+	Pid     string `mapstructure:"pid"`
+	Exe     string `mapstructure:"exe"`
+	Comm    string `mapstructure:"comm"`
+	Cmdline string `mapstructure:"cmdline"`
+	Psm     string `mapstructure:"psm"`
+	PodName string `mapstructure:"pod_name"`
+}
+```
+
+
 - 账户
   - 除了基本的账户字段外，基于弱口令字典进行端上hash碰撞检测弱口令，向上提供了Console的弱口令基线检测功能。另外，会关联分析sudoers配置，一同上报。
+
+type User struct {
+	Username            string `mapstructure:"username"`
+	Password            string `mapstructure:"password"`
+	Uid                 string `mapstructure:"uid"`
+	Gid                 string `mapstructure:"gid"`
+	Groupname           string `mapstructure:"groupname"`
+	Info                string `mapstructure:"info"`
+	Home                string `mapstructure:"home"`
+	Shell               string `mapstructure:"shell"`
+	LastLoginTime       string `mapstructure:"last_login_time"`
+	LastLoginIP         string `mapstructure:"last_login_ip"`
+	WeakPassword        string `mapstructure:"weak_password"`
+	WeakPasswordContent string `mapstructure:"weak_password_content"`
+	Sudoers             string `mapstructure:"sudoers"`
+}
+
+```
+$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+
+格式：
+username:password:uid:gid:info:home:shell
+```
+补充password:
+```
+$ cat /etc/shadow
+root:$6$sD8gshA6$d7rXAxa11g8uP4PRkrfSZ7rkYPNCYFXEltyoTbUUj3OPr5vWqlLmGJwRS9c5PidnWaqx/5QkT.BtpU2DUb2mG/:19619:0:99999:7:::
+bin:*:17834:0:99999:7:::
+daemon:*:17834:0:99999:7:::
+adm:*:17834:0:99999:7:::
+lp:*:17834:0:99999:7:::
+sync:*:17834:0:99999:7:::
+
+```
+
+
+
+
 - 软件 
   - 支持系统软件包、pypi包、jar包，向上支撑漏洞扫描功能。(部分跨容器)
 - 容器 
@@ -152,10 +311,53 @@ Bytedance Cloud Workload Protection Platform
   - 通过将软件包文件哈希与Host实际文件哈希进行对比，判断文件是否有被更改。
 - 内核模块
   - 采集基本字段，以及内存地址、依赖关系等额外字段。
+
+type Kmod struct {
+    Name
+    size
+    refCount
+    usedBy
+    state
+    addr
+}
+
+```
+[root@hecs-393810 proc]# cat modules
+xt_conntrack 12760 3 - Live 0xffffffffc03e4000
+ipt_MASQUERADE 12678 3 - Live 0xffffffffc03da000
+nf_nat_masquerade_ipv4 13463 1 ipt_MASQUERADE, Live 0xffffffffc03df000
+nf_conntrack_netlink 36396 0 - Live 0xffffffffc03d0000
+iptable_nat 12875 1 - Live 0xffffffffc03cb000
+nf_conntrack_ipv4 15053 4 - Live 0xffffffffc03c6000
+
+```
+
+
 - 系统服务
   - 兼容不同发行版下的服务，并对核心字段进行解析。
+
+type Service struct {
+    Name       
+    Type     
+    Command 
+    Restart   
+    WorkingDir 
+    Checksum   
+    BusName    
+}
+
+
+
 - 定时任务
   - 兼容不同发行版下cron位置的定义，并对核心字段进行解析。
+
+type Crontab struct {
+	Path     
+	Username 
+	Schedule 
+	Command  
+	Checksum 
+}
 
 
 
