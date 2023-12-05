@@ -11,6 +11,8 @@ Linux 主机安全开源项目
   - [3.3. 技术原理](#33-技术原理)
     - [**内核层数据采集与 Rootkit 检测**](#内核层数据采集与-rootkit-检测)
     - [**端上资产/关键信息采集**](#端上资产关键信息采集)
+- [Wazuh](#wazuh)
+  - [功能](#功能)
 - [4. Falco](#4-falco)
 - [5. Tetragon](#5-tetragon)
   - [5.1. 架构](#51-架构)
@@ -18,7 +20,6 @@ Linux 主机安全开源项目
 - [7. ThreatMapper](#7-threatmapper)
 - [8. ZeusCloud](#8-zeuscloud)
 - [9. 驭龙 HIDS](#9-驭龙-hids)
-- [10. OSSEC](#10-ossec)
   - [10.1. 架构](#101-架构)
   - [10.2. 核心业务](#102-核心业务)
 - [11. ehids](#11-ehids)
@@ -488,6 +489,25 @@ ClamAV + Yara
 
 6. **运行时应用安全防护**
 
+## Wazuh
+
+The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.
+
+> Star: 7.8k    
+> URL: https://github.com/wazuh/wazuh      
+> Program：C、Python、C++  
+
+
+Wazuh 是一个用于威胁预防、检测和响应的免费开源平台。它能够保护企业内部、虚拟化、容器化和云环境中的工作负载。
+
+Wazuh 解决方案由部署到受监控系统的端点安全代理和管理服务器组成，后者负责收集和分析代理收集的数据。此外，Wazuh 还与 Elastic Stack 完全集成，提供了一个搜索引擎和数据可视化工具，使用户能够浏览安全警报。
+
+
+### 功能
+
+
+
+
 
 ## 4. Falco
 
@@ -554,12 +574,6 @@ Open Source Cloud Security
 > About: 驭龙HIDS是一款由 YSRC 开源的入侵检测系统，由 Agent， Daemon， Server 和 Web 四个部分组成，集异常检测、监控管理为一体，拥有异常行为发现、快速阻断、高级分析等功能，可从多个维度行为信息中发现入侵行为。 
 > Program：Go
 
-## 10. OSSEC
-
-> Star: 4.1k  
-> URL: https://github.com/ossec/ossec-hids  
-> About: OSSEC 是一个基于主机的开源入侵检测系统，可执行:日志分析、文件完整性检查、策略监控、rootkit 检测、实时警报和主动响应。它将 HIDS、日志监控和 SIM/SIEM 融合在一个简单、强大的开源解决方案中。 
-> Program：C
 
 ### 10.1. 架构
 
