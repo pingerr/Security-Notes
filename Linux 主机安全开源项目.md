@@ -9,17 +9,16 @@ Linux 主机安全开源项目
   - [3.1. 架构](#31-架构)
   - [3.2. 核心功能](#32-核心功能)
   - [3.3. 技术原理](#33-技术原理)
-    - [**内核层数据采集与 Rootkit 检测**](#内核层数据采集与-rootkit-检测)
-    - [**端上资产/关键信息采集**](#端上资产关键信息采集)
-- [Wazuh](#wazuh)
-  - [功能](#功能)
-- [4. Falco](#4-falco)
-- [5. Tetragon](#5-tetragon)
-  - [5.1. 架构](#51-架构)
-- [6. Fail2Ban](#6-fail2ban)
-- [7. ThreatMapper](#7-threatmapper)
-- [8. ZeusCloud](#8-zeuscloud)
-- [9. 驭龙 HIDS](#9-驭龙-hids)
+    - [3.3.1. 内核层数据采集与 Rootkit 检测](#331-内核层数据采集与-rootkit-检测)
+    - [3.3.2. 端上资产/关键信息采集](#332-端上资产关键信息采集)
+- [4. Wazuh ☆☆☆☆☆](#4-wazuh-)
+- [5. Falco](#5-falco)
+- [6. Tetragon](#6-tetragon)
+  - [6.1. 架构](#61-架构)
+- [7. Fail2Ban](#7-fail2ban)
+- [8. ThreatMapper](#8-threatmapper)
+- [9. ZeusCloud](#9-zeuscloud)
+- [10. 驭龙 HIDS](#10-驭龙-hids)
   - [10.1. 架构](#101-架构)
   - [10.2. 核心业务](#102-核心业务)
 - [11. ehids](#11-ehids)
@@ -48,6 +47,8 @@ https://github.com/topics/antivirus
 
 - 架构
 - 核心功能与实现原理
+- 数据源
+- 分析技术
 
 
 ## 2. Tracee ☆☆☆☆☆ 
@@ -133,9 +134,9 @@ Bytedance Cloud Workload Protection Platform
 
 ### 3.3. 技术原理
 
-#### **内核层数据采集与 Rootkit 检测**
+#### 3.3.1. 内核层数据采集与 Rootkit 检测
 
-#### **端上资产/关键信息采集**
+#### 3.3.2. 端上资产/关键信息采集
 
 **1 进程**：
 
@@ -233,45 +234,47 @@ $ cat /proc/2406/stat
 ```
 type Port struct {
 	// from inet
-	Family   string `mapstructure:"family"`  
-	Protocol string `mapstructure:"protocol"`
-	State    string `mapstructure:"state"`
-	Sport    string `mapstructure:"sport"`
-	Dport    string `mapstructure:"dport"`
-	Sip      string `mapstructure:"sip"`
-	Dip      string `mapstructure:"dip"`
-	Uid      string `mapstructure:"uid"`
-	Inode    string `mapstructure:"inode"`
-	Username string `mapstructure:"username"`
+	Family   string 
+	Protocol string 
+	State    string 
+	Sport    string 
+	Dport    string 
+	Sip      string 
+	Dip      string 
+	Uid      string 
+	Inode    string 
+	Username string 
 	// from process
-	Pid     string `mapstructure:"pid"`
-	Exe     string `mapstructure:"exe"`
-	Comm    string `mapstructure:"comm"`
-	Cmdline string `mapstructure:"cmdline"`
-	Psm     string `mapstructure:"psm"`
-	PodName string `mapstructure:"pod_name"`
+	Pid     string 
+	Exe     string 
+	Comm    string 
+	Cmdline string 
+	Psm     string 
+	PodName string 
 }
 ```
 
 
 - 账户
   - 除了基本的账户字段外，基于弱口令字典进行端上hash碰撞检测弱口令，向上提供了Console的弱口令基线检测功能。另外，会关联分析sudoers配置，一同上报。
-
+```
 type User struct {
-	Username            string `mapstructure:"username"`
-	Password            string `mapstructure:"password"`
-	Uid                 string `mapstructure:"uid"`
-	Gid                 string `mapstructure:"gid"`
-	Groupname           string `mapstructure:"groupname"`
-	Info                string `mapstructure:"info"`
-	Home                string `mapstructure:"home"`
-	Shell               string `mapstructure:"shell"`
-	LastLoginTime       string `mapstructure:"last_login_time"`
-	LastLoginIP         string `mapstructure:"last_login_ip"`
-	WeakPassword        string `mapstructure:"weak_password"`
-	WeakPasswordContent string `mapstructure:"weak_password_content"`
-	Sudoers             string `mapstructure:"sudoers"`
+	Username            string 
+	Password            string 
+	Uid                 string 
+	Gid                 string 
+	Groupname           string 
+	Info                string 
+	Home                string 
+	Shell               string 
+	LastLoginTime       string 
+	LastLoginIP         string 
+	WeakPassword        string 
+	WeakPasswordContent string 
+	Sudoers             string 
 }
+```
+
 
 ```
 $ cat /etc/passwd
@@ -489,7 +492,7 @@ ClamAV + Yara
 
 6. **运行时应用安全防护**
 
-## Wazuh
+## 4. Wazuh ☆☆☆☆☆
 
 The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.
 
@@ -503,13 +506,7 @@ Wazuh 是一个用于威胁预防、检测和响应的免费开源平台。它�
 Wazuh 解决方案由部署到受监控系统的端点安全代理和管理服务器组成，后者负责收集和分析代理收集的数据。此外，Wazuh 还与 Elastic Stack 完全集成，提供了一个搜索引擎和数据可视化工具，使用户能够浏览安全警报。
 
 
-### 功能
-
-
-
-
-
-## 4. Falco
+## 5. Falco
 
 Cloud Native Runtime Security
 
@@ -518,7 +515,7 @@ Cloud Native Runtime Security
 > Program：C++  
 
 
-## 5. Tetragon 
+## 6. Tetragon 
 
 eBPF-based Security Observability and Runtime Enforcement
 
@@ -533,7 +530,7 @@ eBPF-based Security Observability and Runtime Enforcement
   - **I/O 活动（网络和文件访问）** 
 - Tetragon **具有 Kubernetes 感知能力**，即能够理解命名空间、pod 等 Kubernete 标识，可根据单个工作负载配置安全事件检测。
 
-### 5.1. 架构
+### 6.1. 架构
 
 ![Tetragon架构1](<assets/Linux 主机安全开源项目/image-2.png>)
 
@@ -541,7 +538,7 @@ eBPF-based Security Observability and Runtime Enforcement
 
 
 
-## 6. Fail2Ban
+## 7. Fail2Ban
 
 > Star: 9.1k  
 > URL: https://github.com/fail2ban/fail2ban 
@@ -549,7 +546,7 @@ eBPF-based Security Observability and Runtime Enforcement
 > Program：Python
 
 
-## 7. ThreatMapper
+## 8. ThreatMapper
 
 Runtime Threat Management and Attack Path Enumeration for Cloud Native
 
@@ -558,7 +555,7 @@ Runtime Threat Management and Attack Path Enumeration for Cloud Native
 > About: Deepfence ThreatMapper 可在您的生产平台中搜索威胁，并根据其暴露风险对这些威胁进行排序。它能发现易受攻击的软件组件、暴露的秘密以及偏离良好安全实践的情况。ThreatMapper 结合使用基于代理的检测和无代理监控，以提供尽可能广泛的威胁检测覆盖范围。利用 ThreatMapper 的 ThreatGraph 可视化功能，可以确定对应用程序安全构成最大风险的问题，并将这些问题按优先顺序排列，以便进行有计划的保护或修复。  
 > Program：TypeScript、Go
 
-## 8. ZeusCloud
+## 9. ZeusCloud
 
 Open Source Cloud Security
 
@@ -567,7 +564,7 @@ Open Source Cloud Security
 > About:  
 > Program：TypeScript、Go
 
-## 9. 驭龙 HIDS
+## 10. 驭龙 HIDS
 
 > Star: 2.1k  
 > URL: https://github.com/ysrc/yulong-hids-archived 
