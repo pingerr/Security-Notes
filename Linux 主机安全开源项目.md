@@ -19,12 +19,19 @@ Linux 主机安全开源项目
 - [8. ThreatMapper](#8-threatmapper)
 - [9. ZeusCloud](#9-zeuscloud)
 - [10. 驭龙 HIDS](#10-驭龙-hids)
-  - [10.1. 架构](#101-架构)
-  - [10.2. 核心业务](#102-核心业务)
-- [11. ehids](#11-ehids)
-- [12. Hades - eBPF based HIDS](#12-hades---ebpf-based-hids)
-  - [12.1. 架构](#121-架构)
-  - [12.2. 核心功能](#122-核心功能)
+  - [架构](#架构)
+  - [数据源](#数据源)
+    - [信息收集](#信息收集)
+    - [行为监控](#行为监控)
+  - [](#)
+- [11. Hades - eBPF based HIDS](#11-hades---ebpf-based-hids)
+  - [11.1. 架构](#111-架构)
+  - [11.2. 核心功能](#112-核心功能)
+- [总结](#总结)
+  - [架构](#架构-1)
+  - [数据源](#数据源-1)
+    - [系统信息](#系统信息)
+    - [行为监控](#行为监控-1)
 
 
 
@@ -571,51 +578,156 @@ Open Source Cloud Security
 > About: 驭龙HIDS是一款由 YSRC 开源的入侵检测系统，由 Agent， Daemon， Server 和 Web 四个部分组成，集异常检测、监控管理为一体，拥有异常行为发现、快速阻断、高级分析等功能，可从多个维度行为信息中发现入侵行为。 
 > Program：Go
 
+### 架构
 
-### 10.1. 架构
+![yulongArch](<assets/Linux 主机安全开源项目/image-7.png>)
 
-Manager（Server） + Agents/Agentless
+**Agent**为采集者角色，收集服务器信息、开机启动项、计划任务、监听端口、服务、登录日志、用户列表，实时监控文件操作行为、网络连接、进程创建，初步筛选整理后通过RPC协议传输到Server节点。
 
-![ossec架构](<assets/Linux 主机安全开源项目/image-1.png>)
+**Daemon**为守护服务进程，为Agent提供进程守护、静默环境部署作用，其任务执行功能通过接收服务端的指令实现Agent热更新、阻断功能和自定义命令执行等，任务传输过程使用RSA进行加密。
 
-### 10.2. 核心业务
-
-1. **基于日志的入侵检测**
-   - /var/log/messages
-   - /var/log/auth
-   - /var/log/secure 
+**Server**为整套系统的大脑，支持横向扩展分布式部署，解析用户定义的规则（已内置部分基础规则）对从各Agent接收到的信息和行为进行分析检测和保存，可从各个维度的信息中发现webshell写入行为、异常登录行为、异常网络连接行为、异常命令调用行为等，从而实现对入侵行为实时预警。
 
 
-1. **rootkit 检测**
-   - rootkit_files.txt 包含 rootkit 及其常用文件。对每个指定文件进行 stats、fopen 和 opendir 操作。因为某些内核级 rootkit 会在某些系统调用中隐藏文件。尝试这些系统调用越多，检测效果就越好。
-   - rootkit_trojans.txt 包含被 rootkit 木马攻击的文件签名数据库。这种用木马版本修改二进制文件的技术通常被大多数流行的 rootkit 使用。这种检测方法不会发现任何内核级 rootkit 或任何未知 rootkit。
-   - 扫描 /dev 目录，查找异常。/dev 目录中应该只有设备文件和 Makedev 脚本。很多 rootkit 会使用 /dev 隐藏文件。这种技术甚至可以检测到非公开的 rootkit。
-   - 扫描整个文件系统，查找异常文件和权限问题。root拥有的文件如果有写入权限，则非常危险。此外，还将检查 Suid 文件、隐藏目录和文件。
-   - 查找是否存在隐藏进程。使用 getsid() 和 kill() 来检查是否有 pid 被使用。如果 pid 被使用，但 "ps "看不到它，则表明存在内核级 rootkit 或木马版 "ps"。还要验证 kill 和 getsid 的输出是否相同。
-   - 查找是否存在隐藏端口。使用 bind() 检查系统上的每个 tcp 和 udp 端口。如果无法绑定端口（端口正在被使用），但 netstat 没有显示该端口，则很可能安装了 rootkit。
-   - 扫描系统上的所有接口，查找启用了 "promisc "模式的接口。如果接口处于混杂模式，"ifconfig "的输出应该会显示出来。如果不是，则可能安装了 rootkit。
+### 数据源
+
+#### 信息收集
+
+- 服务器信息
+
+```
+// ComputerInfo 计算机信息结构
+type ComputerInfo struct {
+	IP       string   // IP地址
+	System   string   // 操作系统
+	Hostname string   // 计算机名
+	Type     string   // 服务器类型
+	Path     []string // WEB目录
+}
+```
+
+- 开机启动项
+
+```
+type startup struct {
+	Caption  string // 描述信息
+	Command  string // 执行的程序、命令
+	Location string // 开机启动来源
+	User     string // 启动用户
+}
+```
+
+- 进程
+基于`/proc`文件系统
+
+- 计划任务
+
+系统计划任务 `/etc/crontab`
+用户计划任务 `/var/spool/cron/`
+
+数据结构
+```
+name // 计划任务名
+command // 要执行的程序或命令以及参数
+arg // 启动参数
+user // 启动用户
+rule
+description // 描述
+```
+
+- 监听端口
+TCP监听端口 `ss -nltp`
+
+```
+proto // 类型
+address // 监听地址
+name // 监听程序名
+pid // 监听程序pid
+```
+
+- 服务
+```
+type service struct {
+	Caption   string // 描述信息
+	Name      string // 服务名称
+	PathName  string // 服务程序路径、启动命令
+	Started   bool   // 是否已启动
+	StartMode string // 启动模式
+	StartName string // 启动用户
+}
+```
+
+- 登录日志
+`last`
+`lastb`
+
+数据结构
+```
+username // 用户名
+hostname // 远程主机名
+remote // 远程IP
+status // 认证结果
+time // 时间
+```
+
+- 用户列表
+`/etc/passwd` 忽略 `/nologin` 用户
+
+- Web目录
 
 
-3. **文件完整性监控（配置文件/Windows注册表）**
-    攻击有多种类型，攻击载体也很多，但所有攻击都有一个共同点：它们都会留下痕迹，并总是以某种方式改变系统。从修改少量文件的病毒到改变内核的内核级 rootkit，系统的完整性总会发生一些变化。
+#### 行为监控
 
-    完整性检查是入侵检测的重要组成部分，它能检测出系统完整性的变化。OSSEC 通过查找系统中关键文件的 MD5/SHA1 校验和以及 Windows 注册表中的变化来实现这一点。
+1. **文件操作**
 
-    其工作原理是，代理每隔几小时（用户自定义）扫描一次系统，并将所有校验和发送到服务器。服务器存储校验和，并查找对其进行的修改。如果有任何变化，就会发出警报。
+- 技术原理
+
+  在 linux 内核中，Inotify 是一种用于通知用户空间程序文件系统变化的机制。它监控文件系统的变化，如文件新建、修改、删除等，并可以将相应的事件通知给应用程序。Inotify 既可以监控文件，也可以监控目录。当监控目录时，它可以同时监控目录及目录中的各子目录及文件。
+  Golang 的标准库 syscall 实现了该机制。为了进一步扩展和抽象， https://github.com/fsnotify/fsnotify 包实现了一个基于 channel 的、跨平台的实时监听接口。
+
+- 数据结构
+  ```
+  source  // 类型：文件、目录
+  path    // 文件或者目录路径
+  action  // 文件操作类型
+  user    // 操作用户
+  hash    // 文件md5 hash
+  ```
 
 
+2. **网络连接**
+- 技术实现
+[gopacket](https://github.com/google/gopacket) 是谷歌开源的一款抓包库，为 go 语言提供了处理网卡包的能力。其底层基于libpcap。
+
+- 数据结构
+```
+dir // 方向
+protocol // 类型（TCP、UDP）
+local // 本机进行通讯ip:port
+remote // 远程进行通讯的ip:port
+name // 进程名
+pid // 进程pid
+```
 
 
-## 11. ehids
+3. **进程创建**
+-技术实现
+syshook netlink
 
-> Star: 345    
-> URL: https://github.com/gojue/ehids-agent      
-> About: 基于 eBPF 的 Linux 主机入侵检测系统     
-> Program：C    
+数据模型
+```
+name // 进程名
+command // 程序或命令以及参数
+pid // 进程pid
+ppid // 父进程pid
+parentname // 父进程名
+info // 进程其他相关信息
+```
+
+### 
 
 
-
-## 12. Hades - eBPF based HIDS
+## 11. Hades - eBPF based HIDS
 
 > Star: 260 
 > URL: https://github.com/chriskaliX/Hades/tree/main  
@@ -623,7 +735,7 @@ Manager（Server） + Agents/Agentless
 > Program：C、Rust、Go
 
 
-### 12.1. 架构
+### 11.1. 架构
 
 **Agent**
 
@@ -633,7 +745,7 @@ Manager（Server） + Agents/Agentless
 
 ![hades-architecture-data-analysis](<assets/Linux 主机安全开源项目/image-5.png>)
 
-### 12.2. 核心功能
+### 11.2. 核心功能
 
 1. **Linux Kernel Hook**
 
@@ -689,3 +801,20 @@ Manager（Server） + Agents/Agentless
 |  socket   |  P   | 5001 |
 
 
+## 总结
+
+### 架构
+
+### 数据源
+
+#### 系统信息
+
+#### 行为监控
+
+- 网络行为
+
+- 进程行为
+
+- 文件操作
+
+- 命令执行
