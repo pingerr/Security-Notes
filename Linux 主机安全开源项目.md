@@ -1,9 +1,9 @@
 Linux 主机安全开源项目
 
 - [1. 概述](#1-概述)
-  - [1.1. Topic 搜索](#11-topic-搜索)
+  - [1.1. Reference](#11-reference)
   - [1.2. 分析维度](#12-分析维度)
-- [2. Tracee ☆☆☆☆☆](#2-tracee-)
+- [2. Tracee](#2-tracee)
   - [2.1. 架构](#21-架构)
   - [2.2. 数据源](#22-数据源)
   - [2.3. 事件模型及规则](#23-事件模型及规则)
@@ -39,7 +39,7 @@ Linux 主机安全开源项目
 
 ## 1. 概述 
 
-### 1.1. Topic 搜索
+### 1.1. Reference
 
 https://github.com/topics/hids
 
@@ -55,12 +55,18 @@ https://github.com/topics/antivirus
 ### 1.2. 分析维度
 
 - 架构
-- 核心功能与实现原理
-- 数据源
-- 分析技术
+- 功能模块
+- 数据层
+  - 数据模型
+  - 技术原理
+- 分析层
+  - 事件模型
+  - 规则/算法
+  - 技术原理
+- 响应层
 
 
-## 2. Tracee ☆☆☆☆☆ 
+## 2. Tracee
 
 > Star: 3k  
 > Program：Go、C        
@@ -69,15 +75,18 @@ https://github.com/topics/antivirus
 
 Linux Runtime Security and Forensics using eBPF
 
-> About: Tracee 是一款运行时安全和可观察性工具，可帮助您了解系统和应用程序的行为方式。它使用 eBPF 技术来接入系统，并将这些信息作为可以使用的事件。事件范围从实际系统活动事件到可检测可疑行为模式的复杂安全事件。   
+> About: Tracee 是一个用于 Linux 的运行时安全和取证工具。它使用 Linux eBPF 技术在运行时跟踪系统和应用程序，并分析收集的事件以检测可疑的行为模式。Tracee 以 Docker 镜像的形式交付，监控操作系统并根据预定义的行为模式集检测可疑行为   
 
 ### 2.1. 架构
+
+![tracee_Arch](<assets/Linux 主机安全开源项目/image-8.png>)
 
 ### 2.2. 数据源
 
 ### 2.3. 事件模型及规则
 
-在Tracee中，一切系统和应用行为皆为事件（Event）
+**在Tracee中，一切系统和应用行为皆为事件（Event）**
+
 
 6种内置事件类别
 - syscalls
