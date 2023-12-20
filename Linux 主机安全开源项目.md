@@ -7,19 +7,19 @@ Linux 主机安全开源项目
   - [2.1. 架构](#21-架构)
   - [2.2. 数据源](#22-数据源)
   - [2.3. 事件模型及规则](#23-事件模型及规则)
-- [3. Elkeid ☆☆☆☆☆](#3-elkeid-)
+- [3. Elkeid](#3-elkeid)
   - [3.1. 架构](#31-架构)
   - [3.2. 核心功能](#32-核心功能)
   - [3.3. 技术原理](#33-技术原理)
     - [3.3.1. 内核层数据采集与 Rootkit 检测](#331-内核层数据采集与-rootkit-检测)
     - [3.3.2. 端上资产/关键信息采集](#332-端上资产关键信息采集)
-- [4. Wazuh ☆☆☆☆☆](#4-wazuh-)
+- [4. Wazuh](#4-wazuh)
 - [5. Falco](#5-falco)
 - [6. Tetragon](#6-tetragon)
   - [6.1. 架构](#61-架构)
 - [7. Fail2Ban](#7-fail2ban)
 - [8. ThreatMapper](#8-threatmapper)
-- [9. ZeusCloud](#9-zeuscloud)
+- [9. ZeusCloud —— 预防性云安全平台](#9-zeuscloud--预防性云安全平台)
 - [10. 驭龙 HIDS](#10-驭龙-hids)
   - [10.1. 架构](#101-架构)
   - [10.2. 数据源](#102-数据源)
@@ -96,7 +96,7 @@ Linux Runtime Security and Forensics using eBPF
 - containers
 - misc
 
-## 3. Elkeid ☆☆☆☆☆
+## 3. Elkeid
 
 Bytedance Cloud Workload Protection Platform
 
@@ -516,7 +516,7 @@ ClamAV + Yara
 
 6. **运行时应用安全防护**
 
-## 4. Wazuh ☆☆☆☆☆
+## 4. Wazuh
 
 The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.
 
@@ -579,14 +579,21 @@ Runtime Threat Management and Attack Path Enumeration for Cloud Native
 > About: Deepfence ThreatMapper 可在您的生产平台中搜索威胁，并根据其暴露风险对这些威胁进行排序。它能发现易受攻击的软件组件、暴露的秘密以及偏离良好安全实践的情况。ThreatMapper 结合使用基于代理的检测和无代理监控，以提供尽可能广泛的威胁检测覆盖范围。利用 ThreatMapper 的 ThreatGraph 可视化功能，可以确定对应用程序安全构成最大风险的问题，并将这些问题按优先顺序排列，以便进行有计划的保护或修复。  
 > Program：TypeScript、Go
 
-## 9. ZeusCloud
+## 9. ZeusCloud —— 预防性云安全平台
 
 Open Source Cloud Security
 
 > Star: 629 
 > URL: https://github.com/Zeus-Labs/ZeusCloud 
-> About:  
+
 > Program：TypeScript、Go
+
+ZeusCloud 是一个预防性云安全平台。它可以帮助您发现、优先处理和补救云中的风险。使用 ZeusCloud，您可以:
+- 建立 AWS 账户的资产清单。
+- 持续监控环境中的攻击路径和错误配置。
+- 自定义安全和合规控制，以满足您的需求。
+- 根据上下文对安全发现进行优先排序和补救
+- 符合 PCI DSS、CIS 等合规标准
 
 ## 10. 驭龙 HIDS
 
