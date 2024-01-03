@@ -57,10 +57,8 @@ https://github.com/topics/antivirus
 ### 1.2. 分析维度
 
 - 架构
-- 功能模块
-- 数据层
-  - 数据模型
-  - 技术原理
+- 功能
+- 数据源
 - 分析层
   - 事件模型
   - 规则/算法
@@ -84,6 +82,8 @@ Linux Runtime Security and Forensics using eBPF
 ![tracee_Arch](<assets/Linux 主机安全开源项目/image-8.png>)
 
 ### 2.2. 数据源
+
+
 
 ### 2.3. 事件模型及规则
 
@@ -834,6 +834,8 @@ info // 进程其他相关信息
 ## 13. 安全狗云眼 云主机入侵监测及安全管理平台
 
 https://www.yun88.com/product/2463.html
+
+
 
 ## 14. 总结
 
