@@ -1,50 +1,44 @@
-Linux 主机安全开源项目
+# 1. Linux 主机安全开源项目
 
-- [1. 前言](#1-前言)
-  - [1.1. 参考](#11-参考)
-  - [1.2. 分析维度](#12-分析维度)
-- [2. Tracee](#2-tracee)
-  - [2.1. 架构](#21-架构)
-  - [2.2. 数据采集层](#22-数据采集层)
-  - [2.3. 数据分析层](#23-数据分析层)
-- [3. Elkeid](#3-elkeid)
-  - [3.1. 架构](#31-架构)
-  - [3.2. 核心功能](#32-核心功能)
-  - [3.3. 技术原理](#33-技术原理)
-    - [3.3.1. 端上资产/关键信息采集](#331-端上资产关键信息采集)
-    - [3.3.2. **日志采集**](#332-日志采集)
-    - [3.3.3. **基线检测**](#333-基线检测)
-    - [3.3.4. **恶意文件检测（静态）**](#334-恶意文件检测静态)
-    - [3.3.5. **运行时应用安全防护**](#335-运行时应用安全防护)
-    - [3.3.6. 内核层数据采集与 Rootkit 检测](#336-内核层数据采集与-rootkit-检测)
-- [4. Wazuh](#4-wazuh)
-  - [架构](#架构)
-  - [数据采集层](#数据采集层)
-    - [Wazuh代理架构](#wazuh代理架构)
-    - [Wazuh代理功能模块](#wazuh代理功能模块)
-    - [与Wazuh服务器通信](#与wazuh服务器通信)
-  - [数据分析层](#数据分析层)
-- [5. Falco](#5-falco)
-- [6. Tetragon](#6-tetragon)
-  - [6.1. 架构](#61-架构)
-- [7. Fail2Ban](#7-fail2ban)
-- [8. ThreatMapper](#8-threatmapper)
-- [9. Trivy](#9-trivy)
-- [10. ZeusCloud —— 预防性云安全平台](#10-zeuscloud--预防性云安全平台)
-- [11. 驭龙 HIDS](#11-驭龙-hids)
-  - [11.1. 架构](#111-架构)
-  - [11.2. 数据源](#112-数据源)
-    - [11.2.1. 信息收集](#1121-信息收集)
-    - [11.2.2. 行为监控](#1122-行为监控)
-- [12. Hades - eBPF based HIDS](#12-hades---ebpf-based-hids)
-  - [12.1. 架构](#121-架构)
-  - [12.2. 核心功能](#122-核心功能)
+- [1. Linux 主机安全开源项目](#1-linux-主机安全开源项目)
+  - [1.1. 前言](#11-前言)
+    - [1.1.1. 参考](#111-参考)
+    - [1.1.2. 分析维度](#112-分析维度)
+  - [1.2. Tracee](#12-tracee)
+    - [1.2.1. 架构](#121-架构)
+    - [1.2.2. 数据采集层](#122-数据采集层)
+    - [1.2.3. 数据分析层](#123-数据分析层)
+  - [1.3. Elkeid](#13-elkeid)
+    - [1.3.1. 架构](#131-架构)
+    - [1.3.2. 核心功能](#132-核心功能)
+    - [1.3.3. 技术原理](#133-技术原理)
+      - [1.3.3.1. 端上资产/关键信息采集](#1331-端上资产关键信息采集)
+      - [1.3.3.2. 日志采集](#1332-日志采集)
+      - [1.3.3.3. 基线检测](#1333-基线检测)
+      - [1.3.3.4. 恶意文件检测（静态）](#1334-恶意文件检测静态)
+      - [1.3.3.5. 运行时应用安全防护](#1335-运行时应用安全防护)
+      - [1.3.3.6. 内核层数据采集与 Rootkit 检测](#1336-内核层数据采集与-rootkit-检测)
+  - [1.4. Wazuh](#14-wazuh)
+    - [1.4.1. 架构](#141-架构)
+    - [1.4.2. 数据采集层](#142-数据采集层)
+      - [1.4.2.1. Wazuh代理架构](#1421-wazuh代理架构)
+      - [1.4.2.2. Wazuh代理功能模块](#1422-wazuh代理功能模块)
+      - [1.4.2.3. 与Wazuh服务器通信](#1423-与wazuh服务器通信)
+    - [1.4.3. 数据分析层](#143-数据分析层)
+  - [1.5. 驭龙 HIDS](#15-驭龙-hids)
+    - [1.5.1. 架构](#151-架构)
+    - [1.5.2. 数据采集层](#152-数据采集层)
+      - [1.5.2.1. 信息收集](#1521-信息收集)
+      - [1.5.2.2. 行为监控](#1522-行为监控)
+  - [1.6. Hades - eBPF based HIDS](#16-hades---ebpf-based-hids)
+    - [1.6.1. 架构](#161-架构)
+    - [1.6.2. 数据采集层](#162-数据采集层)
 
 
 
-## 1. 前言 
+## 1.1. 前言 
 
-### 1.1. 参考
+### 1.1.1. 参考
 
 https://github.com/topics/hids
 
@@ -57,7 +51,7 @@ https://github.com/topics/linux-security
 https://github.com/topics/antivirus
 
 
-### 1.2. 分析维度
+### 1.1.2. 分析维度
 
 - 架构
 - 业务功能
@@ -66,14 +60,14 @@ https://github.com/topics/antivirus
 - 响应层
 
 
-## 2. Tracee
+## 1.2. Tracee
 
 > Star: 3k  
 > Program：Go、C        
 > URL: https://github.com/aquasecurity/tracee  
 > Tracee 是一个用于 Linux 的运行时安全和取证工具。它使用 Linux eBPF 技术在运行时跟踪系统和应用程序，并分析收集的事件以检测可疑的行为模式。Tracee 以 Docker 镜像的形式交付，监控操作系统并根据预定义的行为模式集检测可疑行为。   
 
-### 2.1. 架构
+### 1.2.1. 架构
 
 ![tracee_Arch](<assets/Linux 主机安全开源项目/image-8.png>)
 
@@ -83,7 +77,7 @@ Tracee 主要由以下两部分组件构成，
 
 2) **Tracee-Rules** 是一个运行时安全检测引擎，其负责分析 Tracee-eBPF 提交上来的事件流，从而判断在当前安全上下文环境中是否有异常行为发生，通过自定义或内置的规则（Signature/Rules) 产生实时告警，以告知管理员潜在的安全威胁。
 
-### 2.2. 数据采集层
+### 1.2.2. 数据采集层
 tracee-ebpf 在 Tracee 项目中扮演了信息收集者的角色，通过向值得关注的内核函数或事件中插入预定义的探针，收集相关的上下文信息，并最终通过 BPF Maps 将信息汇总至用户态 Go 程序，为用户展示了内核世界发生的图景。
 
 Tracee 项目中将信息收集的模块与事件分析研判的模块进行了解耦分离，这也是大多是安全平台项目的架构思路。
@@ -103,7 +97,7 @@ Tracee 项目中将信息收集的模块与事件分析研判的模块进行了�
 上述每一项功能点都有足够的深度可以进行研究发掘。目前没有来说还没有出现一家独大的场面，各安全厂商也都在积极布局云原生安全，适应这种敏捷轻量的安全体系建设思路。
 
 
-### 2.3. 数据分析层
+### 1.2.3. 数据分析层
 
 **在 Tracee 中，一切系统和应用行为皆为事件（Event）**
 
@@ -212,7 +206,7 @@ tracee_match {
 |Syscall Table Hooking|检测系统调用表hook尝试|
 |System Request Key Configuration Modification	|监控系统请求键配置更改|
 
-## 3. Elkeid
+## 1.3. Elkeid
 
 Bytedance Cloud Workload Protection Platform
 
@@ -224,7 +218,7 @@ Bytedance Cloud Workload Protection Platform
 > 
 > Program：Go、C、Rust、C++
 
-### 3.1. 架构
+### 1.3.1. 架构
 
 ![Elkeid架构](<assets/Linux 主机安全开源项目/image.png>)
 
@@ -247,7 +241,7 @@ Bytedance Cloud Workload Protection Platform
   - **Elkeid Console** Elkeid 前端部分
 
 
-### 3.2. 核心功能
+### 1.3.2. 核心功能
 
 **资产盘点**
 统一管理主机列表、容器列表、进程、Java进程依赖信息、端口、账号、系统组件、系统服务、定时任务、系统完整性等资产指纹信息，帮助企业资产可视化。
@@ -269,9 +263,9 @@ Bytedance Cloud Workload Protection Platform
 对主机、应用上存在的漏洞风险进行全面监测，包括系统组件漏洞、应用漏洞等，帮助企业应对漏洞风险。
 
 
-### 3.3. 技术原理
+### 1.3.3. 技术原理
 
-#### 3.3.1. 端上资产/关键信息采集
+#### 1.3.3.1. 端上资产/关键信息采集
 
 1. **进程**：
 > 支持对exe md5的哈希计算，后续可关联威胁情报分析   
@@ -504,7 +498,7 @@ type Crontab struct {
   - 支持网卡、磁盘等硬件信息的采集。
 
 
-#### 3.3.2. **日志采集**
+#### 1.3.3.2. 日志采集
 
 - 认证授权日志
   - `/var/log/secure`
@@ -514,7 +508,7 @@ type Crontab struct {
 - 整体系统日志
   - `/var/log/messages`
 
-#### 3.3.3. **基线检测**
+#### 1.3.3.3. 基线检测
 
 - 身份鉴别-设置密码失效时间<=90天
   - 说明
@@ -625,14 +619,14 @@ type Crontab struct {
 
 
 
-#### 3.3.4. **恶意文件检测（静态）**
+#### 1.3.3.4. 恶意文件检测（静态）
 ClamAV 引擎 + Yara 规则
 
-#### 3.3.5. **运行时应用安全防护**
+#### 1.3.3.5. 运行时应用安全防护
 
-#### 3.3.6. 内核层数据采集与 Rootkit 检测
+#### 1.3.3.6. 内核层数据采集与 Rootkit 检测
 
-## 4. Wazuh
+## 1.4. Wazuh
 
 > Star: 7.8k    
 > URL: https://github.com/wazuh/wazuh      
@@ -643,7 +637,7 @@ Wazuh 是一个用于威胁预防、检测和响应的免费开源平台。它�
 
 Wazuh 解决方案由部署到受监控系统的端点安全代理和管理服务器组成，后者负责收集和分析代理收集的数据。此外，Wazuh 还与 Elastic Stack 完全集成，提供了一个搜索引擎和数据可视化工具，使用户能够浏览安全警报。
 
-### 架构
+### 1.4.1. 架构
 ![wazuh架构](<assets/Linux 主机安全开源项目/image-9.png>)
 
 Wazuh平台主要包括三个主要组件，分别是Wazuh代理，Wazuh服务器和Elastic Stack。
@@ -652,15 +646,15 @@ Wazuh平台主要包括三个主要组件，分别是Wazuh代理，Wazuh服务�
 - Wazuh服务器：它分析从代理收到的数据，通过解码器和规则对其进行处理，并使用威胁情报来查找众所周知的危害指标（IOC）。一台服务器可以分析来自成百上千个代理的数据，并在设置为集群时水平扩展。该服务器还用于管理代理，在必要时进行远程配置和升级。
 - Elastic Stack：它索引和存储Wazuh服务器生成的警报。此外，Wazuh和Kibana之间的集成为数据的可视化和分析提供了强大的用户界面。该界面还可用于管理Wazuh配置并监视其状态。
 
-### 数据采集层
+### 1.4.2. 数据采集层
 Wazuh代理可在Linux，Windows，macOS，Solaris，AIX和其他操作系统上运行。它可以部署到笔记本电脑，台式机，服务器，云实例，容器或虚拟机。它提供了威胁预防，检测和响应功能。它还可用于收集不同类型的系统和应用程序数据，然后通过加密并经过身份验证的通道将其转发到Wazuh服务器。
 
-#### Wazuh代理架构
+#### 1.4.2.1. Wazuh代理架构
 Wazuh代理具有模块化体系结构，其中不同的组件负责各自的任务：监视文件系统，读取日志消息，收集清单数据，扫描系统配置，查找恶意软件等。用户可以通过配置启用或禁用代理模块设置，使解决方案适应其特定的用例。
 
 ![wazuh agent](<assets/Linux 主机安全开源项目/image-10.png>)
 
-#### Wazuh代理功能模块
+#### 1.4.2.2. Wazuh代理功能模块
 
 - 日志收集器：此代理组件可以读取平面日志文件和Windows事件，收集操作系统和应用程序日志消息。它确实支持Windows事件的XPath过滤器，并且可以识别多行格式（例如Linux审核日志）。它还可以使用其他元数据来丰富JSON事件。
 - 命令执行：代理可以定期运行授权命令，收集其输出并将其报告回Wazuh服务器以进行进一步分析。此模块可用于满足不同的目的（例如，监视剩余的硬盘空间，获取上次登录用户的列表等）。
@@ -672,7 +666,7 @@ Wazuh代理具有模块化体系结构，其中不同的组件负责各自的任
 - 容器安全监视：此代理模块与Docker Engine API集成在一起，以监视容器化环境中的更改。例如，它检测到容器映像，网络配置或数据量的更改。此外，它还警告以特权模式运行的容器以及正在运行的容器中执行命令的用户。
 - 云安全监视：此组件监视诸如Amazon AWS，Microsoft Azure或Google GCP之类的云提供商。它与它们的API进行本地通信。它能够检测云基础架构的更改（例如，创建新用户，修改安全组，停止云实例等），并收集云服务日志数据（例如，AWS Cloudtrail，AWS Macie，AWS GuardDuty ，Azure Active Directory等）
 
-#### 与Wazuh服务器通信
+#### 1.4.2.3. 与Wazuh服务器通信
 
 Wazuh代理与Wazuh服务器进行通信，以便运送收集的数据和与安全性相关的事件。此外，代理发送操作数据，报告其配置和状态。连接后，可以从Wazuh服务器远程升级，监视和配置代理。
 
@@ -680,7 +674,7 @@ Wazuh代理与服务器的通信通过安全通道（TCP或UDP）进行，实时
 
 在第一次将Wazuh代理连接到服务器之前，必须先注册Wazuh代理。此过程为代理提供了唯一的预共享密钥，该密钥用于身份验证和数据加密。
 
-### 数据分析层
+### 1.4.3. 数据分析层
 Wazuh服务器组件负责分析从代理接收的数据，并在检测到威胁或异常时触发警报。它还用于远程管理代理配置并监视其状态。
 
 Wazuh服务器运行分析引擎，Wazuh RESTful API，代理注册服务，代理连接服务，Wazuh集群守护程序和Filebeat。下图表示服务器体系结构和组件：
@@ -696,83 +690,14 @@ Wazuh服务器运行分析引擎，Wazuh RESTful API，代理注册服务，代�
 - Wazuh群集守护程序：此服务用于水平扩展Wazuh服务器，将它们部署为群集。这种配置与网络负载平衡器相结合，可提供高可用性和负载平衡。Wazuh群集守护程序是Wazuh服务器用来相互通信并保持同步的服务器。
 - Filebeat：用于将事件和警报发送到Elasticsearch。它读取Wazuh分析引擎的输出并实时发送事件。当连接到多节点Elasticsearch集群时，它还提供负载平衡。
 
-## 5. Falco
-
-Cloud Native Runtime Security
-
-> Star: 6.5k    
-> URL: https://github.com/falcosecurity/falco      
-> Program：C++  
-
-
-## 6. Tetragon 
-
-eBPF-based Security Observability and Runtime Enforcement
-
-> Star: 2.9k    
-> URL: https://github.com/cilium/tetragon     
-> Program：Go、C  
-
-- Tetragon 组件基于 **eBPF** 实现实时安全可观察性和运行时执行。
-- Tetragon 可检测并应对安全重大事件，如：
-  - **进程执行事件** 
-  - **系统调用活动** 
-  - **I/O 活动（网络和文件访问）** 
-- Tetragon **具有 Kubernetes 感知能力**，即能够理解命名空间、pod 等 Kubernete 标识，可根据单个工作负载配置安全事件检测。
-
-### 6.1. 架构
-
-![Tetragon架构1](<assets/Linux 主机安全开源项目/image-2.png>)
-
-![Tetragon架构2](<assets/Linux 主机安全开源项目/image-3.png>)
-
-
-
-## 7. Fail2Ban
-
-> Star: 9.1k  
-> URL: https://github.com/fail2ban/fail2ban 
-> About: Daemon to ban hosts that cause multiple authentication errors（禁止导致多次身份验证错误的主机的守护进程）  
-> Program：Python
-
-
-## 8. ThreatMapper
-
-Runtime Threat Management and Attack Path Enumeration for Cloud Native
-
-> Star: 4.5k  
-> URL: https://github.com/deepfence/ThreatMapper  
-> About: Deepfence ThreatMapper 可在您的生产平台中搜索威胁，并根据其暴露风险对这些威胁进行排序。它能发现易受攻击的软件组件、暴露的秘密以及偏离良好安全实践的情况。ThreatMapper 结合使用基于代理的检测和无代理监控，以提供尽可能广泛的威胁检测覆盖范围。利用 ThreatMapper 的 ThreatGraph 可视化功能，可以确定对应用程序安全构成最大风险的问题，并将这些问题按优先顺序排列，以便进行有计划的保护或修复。  
-> Program：TypeScript、Go
-
-## 9. Trivy 
-
-> URL：https://github.com/aquasecurity/trivy  
-
-## 10. ZeusCloud —— 预防性云安全平台
-
-Open Source Cloud Security
-
-> Star: 629 
-> URL: https://github.com/Zeus-Labs/ZeusCloud 
-
-> Program：TypeScript、Go
-
-ZeusCloud 是一个预防性云安全平台。它可以帮助您发现、优先处理和补救云中的风险。使用 ZeusCloud，您可以:
-- 建立 AWS 账户的资产清单。
-- 持续监控环境中的攻击路径和错误配置。
-- 自定义安全和合规控制，以满足您的需求。
-- 根据上下文对安全发现进行优先排序和补救
-- 符合 PCI DSS、CIS 等合规标准
-
-## 11. 驭龙 HIDS
+## 1.5. 驭龙 HIDS
 
 > Star: 2.1k  
+> Program：Go   
 > URL: https://github.com/ysrc/yulong-hids-archived 
-> About: 驭龙HIDS是一款由 YSRC 开源的入侵检测系统，由 Agent， Daemon， Server 和 Web 四个部分组成，集异常检测、监控管理为一体，拥有异常行为发现、快速阻断、高级分析等功能，可从多个维度行为信息中发现入侵行为。 
-> Program：Go
+> 驭龙HIDS是一款由 YSRC 开源的入侵检测系统，由 Agent， Daemon， Server 和 Web 四个部分组成，集异常检测、监控管理为一体，拥有异常行为发现、快速阻断、高级分析等功能，可从多个维度行为信息中发现入侵行为。 
 
-### 11.1. 架构
+### 1.5.1. 架构
 
 ![yulongArch](<assets/Linux 主机安全开源项目/image-7.png>)
 
@@ -783,13 +708,13 @@ ZeusCloud 是一个预防性云安全平台。它可以帮助您发现、优先�
 **Server**为整套系统的大脑，支持横向扩展分布式部署，解析用户定义的规则（已内置部分基础规则）对从各Agent接收到的信息和行为进行分析检测和保存，可从各个维度的信息中发现webshell写入行为、异常登录行为、异常网络连接行为、异常命令调用行为等，从而实现对入侵行为实时预警。
 
 
-### 11.2. 数据源
+### 1.5.2. 数据采集层
 
-#### 11.2.1. 信息收集
+#### 1.5.2.1. 信息收集
 
 - 服务器信息
 
-```
+```go
 // ComputerInfo 计算机信息结构
 type ComputerInfo struct {
 	IP       string   // IP地址
@@ -802,7 +727,7 @@ type ComputerInfo struct {
 
 - 开机启动项
 
-```
+```go
 type startup struct {
 	Caption  string // 描述信息
 	Command  string // 执行的程序、命令
@@ -815,12 +740,11 @@ type startup struct {
 基于`/proc`文件系统
 
 - 计划任务
-
 系统计划任务 `/etc/crontab`
 用户计划任务 `/var/spool/cron/`
 
 数据结构
-```
+```go
 name // 计划任务名
 command // 要执行的程序或命令以及参数
 arg // 启动参数
@@ -831,8 +755,7 @@ description // 描述
 
 - 监听端口
 TCP监听端口 `ss -nltp`
-
-```
+```go
 proto // 类型
 address // 监听地址
 name // 监听程序名
@@ -840,7 +763,7 @@ pid // 监听程序pid
 ```
 
 - 服务
-```
+```go
 type service struct {
 	Caption   string // 描述信息
 	Name      string // 服务名称
@@ -856,7 +779,7 @@ type service struct {
 `lastb`
 
 数据结构
-```
+```go
 username // 用户名
 hostname // 远程主机名
 remote // 远程IP
@@ -870,7 +793,7 @@ time // 时间
 - Web目录
 
 
-#### 11.2.2. 行为监控
+#### 1.5.2.2. 行为监控
 
 1. **文件操作**
 
@@ -909,24 +832,24 @@ pid // 进程pid
 syshook netlink
 
 数据模型
-```
+```go
 name // 进程名
 command // 程序或命令以及参数
 pid // 进程pid
 ppid // 父进程pid
 parentname // 父进程名
 info // 进程其他相关信息
+```
 
-
-## 12. Hades - eBPF based HIDS
+## 1.6. Hades - eBPF based HIDS
 
 > Star: 260 
 > URL: https://github.com/chriskaliX/Hades/tree/main  
-> About: Hades 是一个基于 eBPF 的主机入侵检测系统，同时兼容低版本下通过 netlink(cn_proc) 进行事件审计，借鉴了Tracee和Elkeid 
-> Program：C、Rust、Go
+> Program：C、Rust、Go  
+> Hades 是一个基于 eBPF 的主机入侵检测系统，同时兼容低版本下通过 netlink(cn_proc) 进行事件审计，借鉴了Tracee和Elkeid 
 
 
-### 12.1. 架构
+### 1.6.1. 架构
 
 **Agent**
 
@@ -936,7 +859,7 @@ info // 进程其他相关信息
 
 ![hades-architecture-data-analysis](<assets/Linux 主机安全开源项目/image-5.png>)
 
-### 12.2. 核心功能
+### 1.6.2. 数据采集层
 
 1. **Linux Kernel Hook**
 
